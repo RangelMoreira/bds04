@@ -14,7 +14,7 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Res
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
 @Configuration
-@EnableResourceServer //Habilita as funcionalidades do server do OAuth2
+@EnableResourceServer 
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 	
 	@Autowired
@@ -23,32 +23,29 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 	@Autowired
 	private JwtTokenStore tokenStore;
 	
-	//Enpoints públicos
 	private static final String[] PUBLIC = {"/oauth/token", "/h2-console/**"};
 	
-	private static final String[] OPERATOR_GET= {"/departments/**","/employees/**"};
+	private static final String[] PUBLIC_GET = {"/cities/**", "/events/**"};
 	
+	private static final String[] CLIENT = {"/events/**"};
 	
-	/*Faz com que o resource Server seja capaz de decodificar o Token 
-	 * e ver se eles está válido ou não */
 	@Override
 	public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
 		resources.tokenStore(tokenStore);
 	}
-	
-	/* Configurando as Rotas */
+
 
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
 		
-		//Liberando h2
 		if (Arrays.asList(env.getActiveProfiles()).contains("test")) {
 			http.headers().frameOptions().disable();
 		}
 		
 		http.authorizeRequests()
-		.antMatchers(PUBLIC).permitAll()//Permite para todo mundo
-		.antMatchers(HttpMethod.GET, OPERATOR_GET).hasAnyRole("OPERATOR")//Rotas Get permitas para o operador
+		.antMatchers(PUBLIC).permitAll()
+		.antMatchers(HttpMethod.GET, PUBLIC_GET).permitAll()
+		.antMatchers(HttpMethod.POST, CLIENT).hasAnyRole("CLIENT")
 		.anyRequest().hasAnyRole("ADMIN");
 	}
 	
