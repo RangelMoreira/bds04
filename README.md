@@ -1,6 +1,6 @@
 # Sobre o projeto
 
-Trata-se de uma API relacionada à eventos, desenvolvida aplicando os conceitos de autenticação e autorização a nível de perfil durante o exercío final do capítulo de Autenticação e Autorização do Bootcamp Spring React, ministrado pela DevSuperior. 
+Trata-se de uma API relacionada à eventos, desenvolvida aplicando os conceitos de autenticação e autorização a nível de perfil durante o exercício final do capítulo de Autenticação e Autorização do Bootcamp Spring React, ministrado pela DevSuperior. 
 
 ## Modelo conceitual
 ![Modelo Conceitual](https://raw.githubusercontent.com/RangelMoreira/bds04/main/assets/conceitual.png)
