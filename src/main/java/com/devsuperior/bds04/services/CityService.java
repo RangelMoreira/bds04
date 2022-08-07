@@ -31,5 +31,14 @@ public class CityService {
 		return (listDTO);
 	}
 	
+	@Transactional
+	public CityDTO insert(CityDTO dto) {
+		City entity = new City();
+		entity.setName(dto.getName());
+		
+		entity = repository.save(entity);
+		return new CityDTO(entity);
+	}
+	
 
 }
